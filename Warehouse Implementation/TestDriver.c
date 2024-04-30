@@ -40,7 +40,6 @@ Item* generateRandomItemBST(int numItems) {
 
 void testSearchItems() 
 {
-    printf("Testing searchItem method with manual data:\n");
     Item* result;
 
     // Create an item BST with manual data
@@ -51,7 +50,6 @@ void testSearchItems()
     createAndInsertItem(&root, 1004, "Item 4", 40);
 
     // Search for items
-    printf("Searching for items:\n");
     searchItem(root, 1002); // Search for item with ID 1002
     searchItem(root, 1005); // Search for item with ID 1005 (not found)
 
@@ -63,13 +61,12 @@ void testItemMethods()
 {
     srand(time(NULL)); // Seed the random number generator
 
+    printf("Create a BST of 5 items, which tests newItem(), insertItem(), and displayItems():\n");
     // Generate a random item BST with 5 items
     Item* root = generateRandomItemBST(5);
-
-    // Display the generated item BST
-    printf("Generated Item BST:\n");
     displayItems(root);
     freeItems(root);
+    printf("\nCreates manual data for a new BST of 5 items and searches for items with id 1002 and 1005, tests searchItem():\n");
     testSearchItems();
 }
 
@@ -91,17 +88,45 @@ Warehouse* generateAndLinkRandomWarehouses(int numWarehouses, int numItems) {
 void testWarehouseMethods()
 {
     Warehouse* testWarehouse;
+    printf("Create 10 random warehouses with 10 random items, tests newWarehouse() and displayWarehouses():\n");
     testWarehouse = generateAndLinkRandomWarehouses(10, 10);
     displayWarehouses(testWarehouse);
+    printf("\n");
+    printf("Add a item to a warehouse, which tests addItemToWarehouse() and displayWarehouse():\n");
     addItemToWarehouse(testWarehouse, 75, "test", 200);
     displayWarhouse(testWarehouse, testWarehouse->id);
     
 }
 
 int main() {
+    int choice = NULL;
     Warehouse* testWarehouse;
-    //stestItemMethods();
-    testWarehouseMethods();
+
+    do 
+    {
+        printf("Functionality or time?\n");
+        printf("0: quit\n1: function \n2: time\n");
+        scanf_s("%d", &choice);
+        if (choice == 1)
+        {
+            printf("Which data type?\n");
+            printf("1. Item (BST)\n2. Warehouse(Linked List)\n");
+            scanf_s("%d", &choice);
+            if (choice == 1) 
+            {
+                testItemMethods();
+            }
+            else if(choice == 2)
+            {
+                testWarehouseMethods();
+            }
+        }
+        else if (choice == 2)
+        {
+
+        }
+
+    } while (choice != 0);
 
     return 0;
 }
