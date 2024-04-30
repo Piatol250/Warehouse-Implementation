@@ -60,3 +60,14 @@ void displayWarhouse(Warehouse* head, int id)
     }
     printf("Warehouse with ID %d not found.\n", id);
 }
+
+void freeWarehouses(Warehouse* head) {
+    Warehouse* currentWarehouse = head;
+    while (currentWarehouse != NULL) {
+        Warehouse* nextWarehouse = currentWarehouse->next;
+        // Free memory allocated for the current warehouse
+        freeItems(currentWarehouse->root);
+        free(currentWarehouse);
+        currentWarehouse = nextWarehouse; // Move to the next warehouse
+    }
+}

@@ -95,7 +95,7 @@ void testWarehouseMethods()
     printf("Add a item to a warehouse, which tests addItemToWarehouse() and displayWarehouse():\n");
     addItemToWarehouse(testWarehouse, 75, "test", 200);
     displayWarhouse(testWarehouse, testWarehouse->id);
-    
+    freeWarehouses(testWarehouse);
 }
 
 int main() {
