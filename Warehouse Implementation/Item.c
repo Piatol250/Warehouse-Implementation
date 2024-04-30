@@ -33,12 +33,20 @@ void insertItem(Item** root, int id, const char* name, int quantity) {
 
 Item* searchItem(Item* root, int id) {
     if (root == NULL || root->id == id) {
+        if (root != NULL) {
+            printf("Item with ID %d found. Name: %s, Quantity: %d\n", id, root->name, root->quantity);
+        }
+        else {
+            printf("Item with ID %d not found.\n", id);
+        }
         return root;
     }
     if (id < root->id) {
         return searchItem(root->left, id);
     }
-    return searchItem(root->right, id);
+    else {
+        return searchItem(root->right, id);
+    }
 }
 
 void displayItems(Item* root) {

@@ -18,6 +18,11 @@ void generateRandomString(char* str, int length) {
     str[length - 1] = '\0';
 }
 
+void createAndInsertItem(Item** root, int id, const char* name, int quantity) {
+    Item* item = newItem(id, name, quantity);
+    insertItem(root, item->id, item->name, item->quantity);
+}
+
 // Generate a random item BST with a given number of items
 Item* generateRandomItemBST(int numItems) {
     Item* root = NULL;
@@ -26,17 +31,32 @@ Item* generateRandomItemBST(int numItems) {
         char* name[50];
         generateRandomString(&name, 10);
         int quantity = getRandomInt(1, 100); // Random quantity between 1 and 100
-        Item* item = newItem(id, name, quantity); // Create a new item
-        if (item != NULL) {
-            insertItem(&root, item->id, item->name, item->quantity); // Insert the item into the BST
-        }
+        createAndInsertItem(&root, id, name, quantity);
+        
     }
     return root;
 }
 
+
 void testSearchItems() 
 {
-    
+    printf("Testing searchItem method with manual data:\n");
+    Item* result;
+
+    // Create an item BST with manual data
+    Item* root = newItem(1000, "Item 0", 0);
+    createAndInsertItem(&root, 1001, "Item 1", 10);
+    createAndInsertItem(&root, 1002, "Item 2", 20);
+    createAndInsertItem(&root, 1003, "Item 3", 30);
+    createAndInsertItem(&root, 1004, "Item 4", 40);
+
+    // Search for items
+    printf("Searching for items:\n");
+    searchItem(root, 1002); // Search for item with ID 1002
+    searchItem(root, 1005); // Search for item with ID 1005 (not found)
+
+    // Free memory allocated for the item BST
+    freeItems(root);
 }
 
 int main() {
@@ -48,10 +68,8 @@ int main() {
     // Display the generated item BST
     printf("Generated Item BST:\n");
     displayItems(root);
-
-    // Free the memory allocated for the item BST
-    // (Assuming you have implemented the necessary logic in the displayItems function to free memory)
-    // freeItems(root);
+    freeItems(root);
+    testSearchItems();
 
     return 0;
 }
