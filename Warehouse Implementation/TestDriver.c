@@ -3,6 +3,7 @@
 #include <string.h>
 #include "warehouse.h"
 #include "item.h"
+#include <time.h> 
 
 // Helper function to generate a random integer within a range
 int getRandomInt(int min, int max) {
@@ -24,7 +25,7 @@ void createAndInsertItem(Item** root, int id, const char* name, int quantity) {
 }
 
 // Generate a random item BST with a given number of items
-Item* generateRandomItemBST(int numItems) {
+Item* generateRandomItems(int numItems) {
     Item* root = NULL;
     for (int i = 0; i < numItems; ++i) {
         int id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
@@ -63,7 +64,7 @@ void testItemMethods()
 
     printf("Create a BST of 5 items, which tests newItem(), insertItem(), and displayItems():\n");
     // Generate a random item BST with 5 items
-    Item* root = generateRandomItemBST(5);
+    Item* root = generateRandomItems(5);
     displayItems(root);
     freeItems(root);
     printf("\nCreates manual data for a new BST of 5 items and searches for items with id 1002 and 1005, tests searchItem():\n");
@@ -76,7 +77,7 @@ Warehouse* generateAndLinkRandomWarehouses(int numWarehouses, int numItems) {
         int id = getRandomInt(100, 999); // Random ID between 100 and 999
         char location[50];
         generateRandomString(&location, 10);
-        Warehouse* warehouse = newWarehouse(id, location, generateRandomItemBST(numItems)); // Create a new warehouse
+        Warehouse* warehouse = newWarehouse(id, location, generateRandomItems(numItems)); // Create a new warehouse
         if (warehouse != NULL) {
             warehouse->next = head; // Link the new warehouse to the head of the list
             head = warehouse; // Update the head to point to the new warehouse
@@ -92,25 +93,96 @@ void testWarehouseMethods()
     testWarehouse = generateAndLinkRandomWarehouses(10, 10);
     displayWarehouses(testWarehouse);
     printf("\n");
-    printf("Add a item to a warehouse, which tests addItemToWarehouse() and displayWarehouse():\n");
+    printf("Add an item to a warehouse (name: test, id: 75, quantity: 200, which tests addItemToWarehouse() and displayWarehouse():\n");
     addItemToWarehouse(testWarehouse, 75, "test", 200);
     displayWarhouse(testWarehouse, testWarehouse->id);
     freeWarehouses(testWarehouse);
 }
 
+void itemCreationPerformance(int numItems)
+{
+    clock_t start, end;
+    double cpu_time_used;
+    Item* root;
+
+    start = clock();
+
+    root = generateRandomItems(numItems);
+
+    end = clock();
+
+    cpu_time_used = ((double)(end - start))/1000;
+    printf("Time taken to create item BST with %d items: %f seconds\n", numItems, cpu_time_used);
+    freeItems(root);
+}
+
+void itemSearchPerformance(int numIts)
+{
+    clock_t start, end;
+    double cpu_time_used;
+    Item* root;
+    int id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
+
+    root = generateRandomItems(numIts);
+
+    start = clock();
+
+    searchItem(root, id);
+
+    end = clock();
+
+    cpu_time_used = ((double)(end - start)) / 1000;
+    printf("Time taken to search for %d items: %f seconds\n", numIts, cpu_time_used);
+    freeItems(root);
+}
+
+void itemInsertPerformance(int numIts) 
+{
+    clock_t start, end;
+    double cpu_time_used;
+    Item* root;
+    int id = NULL;
+    char name[50];
+    int quantity = NULL;
+
+    root = generateRandomItems(1);
+
+    start = clock();
+
+    for(int currIt = 0; currIt < numIts; currIt++)
+    {
+        id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
+        generateRandomString(&name, 10);
+        quantity = getRandomInt(1, 100);
+        insertItem(&root, id, name, quantity);   
+    }
+
+    end = clock();
+
+    cpu_time_used = ((double)(end - start)) / 1000;
+    printf("Time taken to insert %d items: %f seconds\n", numIts, cpu_time_used);
+    freeItems(root);
+}
+
+
+
+
+
 int main() {
     int choice = NULL;
     Warehouse* testWarehouse;
+    int iterations = NULL;
 
     do 
     {
-        printf("Functionality or time?\n");
+        
+        printf("Functionality or performance?\n");
         printf("0: quit\n1: function \n2: time\n");
         scanf_s("%d", &choice);
         if (choice == 1)
         {
             printf("Which data type?\n");
-            printf("1. Item (BST)\n2. Warehouse(Linked List)\n");
+            printf("1. Item (BST)\n2. Warehouse (Linked List)\n");
             scanf_s("%d", &choice);
             if (choice == 1) 
             {
@@ -123,6 +195,32 @@ int main() {
         }
         else if (choice == 2)
         {
+            printf("How many iterations?\n");
+            scanf_s("%d", &iterations);
+            printf("Which data type?\n");
+            printf("1. Item (BST)\n2. Warehouse (Linked List)\n");
+            scanf_s("%d", &choice);
+            if (choice == 1) 
+            {
+                printf("Which method?\n");
+                printf("1. Creation\n2. Search\n\n3. Insert\n");
+                scanf_s("%d", &choice);
+                switch(choice)
+                {
+                    case 1: 
+                        itemCreationPerformance(iterations);
+                        break;
+                    case 2:
+                        itemSearchPerformance(iterations);
+                        break;
+                    case 3:
+                        itemInsertPerformance(iterations);
+                }
+            }
+           
+
+
+
 
         }
 

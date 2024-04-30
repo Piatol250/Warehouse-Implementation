@@ -65,7 +65,7 @@ void freeWarehouses(Warehouse* head) {
     Warehouse* currentWarehouse = head;
     while (currentWarehouse != NULL) {
         Warehouse* nextWarehouse = currentWarehouse->next;
-        // Free memory allocated for the current warehouse
+        // Free memory allocated for the current warehouse and items
         freeItems(currentWarehouse->root);
         free(currentWarehouse);
         currentWarehouse = nextWarehouse; // Move to the next warehouse

@@ -25,8 +25,9 @@ void insertItem(Item** root, int id, const char* name, int quantity) {
             insertItem(&((*root)->right), id, name, quantity);
         }
         else {
-            printf("Item with ID %d already exists.\n", id);
-            // Handle duplicate IDs as needed
+            //Handles duplicates
+            insertItem(root, id + 1, name, quantity);
+            
         }
     }
 }
