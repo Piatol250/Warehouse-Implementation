@@ -59,7 +59,8 @@ void testSearchItems()
     freeItems(root);
 }
 
-int main() {
+void testItemMethods()
+{
     srand(time(NULL)); // Seed the random number generator
 
     // Generate a random item BST with 5 items
@@ -70,6 +71,37 @@ int main() {
     displayItems(root);
     freeItems(root);
     testSearchItems();
+}
+
+Warehouse* generateAndLinkRandomWarehouses(int numWarehouses, int numItems) {
+    Warehouse* head = NULL;
+    for (int i = 0; i < numWarehouses; ++i) {
+        int id = getRandomInt(100, 999); // Random ID between 100 and 999
+        char location[50];
+        generateRandomString(&location, 10);
+        Warehouse* warehouse = newWarehouse(id, location, generateRandomItemBST(numItems)); // Create a new warehouse
+        if (warehouse != NULL) {
+            warehouse->next = head; // Link the new warehouse to the head of the list
+            head = warehouse; // Update the head to point to the new warehouse
+        }
+    }
+    return head;
+}
+
+void testWarehouseMethods()
+{
+    Warehouse* testWarehouse;
+    testWarehouse = generateAndLinkRandomWarehouses(10, 10);
+    displayWarehouses(testWarehouse);
+    addItemToWarehouse(testWarehouse, 75, "test", 200);
+    displayWarhouse(testWarehouse, testWarehouse->id);
+    
+}
+
+int main() {
+    Warehouse* testWarehouse;
+    //stestItemMethods();
+    testWarehouseMethods();
 
     return 0;
 }

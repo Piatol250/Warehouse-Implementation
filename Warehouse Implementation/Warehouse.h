@@ -13,6 +13,7 @@ typedef struct Warehouse {
 void insertWarehouse(Warehouse** head, int id, const char* location);
 void addItemToWarehouse(Warehouse* warehouse, int id, const char* name, int quantity);
 void displayWarehouses(Warehouse* head);
+void displayWarhouse(Warehouse* head, int id);
 Warehouse* newWarehouse(int id, const char* location, Item* itemBSTRoot);
 
 // Other warehouse-related function declarations

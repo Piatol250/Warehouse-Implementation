@@ -46,3 +46,17 @@ Warehouse* newWarehouse(int id, const char* location, Item* itemBSTRoot) {
     newWarehouse->next = NULL;
     return newWarehouse;
 }
+
+void displayWarhouse(Warehouse* head, int id)
+{
+    Warehouse* currentWarehouse = head;
+    while (currentWarehouse != NULL) {
+        if (currentWarehouse->id == id) {
+            printf("Warehouse ID: %d, Location: %s\n", currentWarehouse->id, currentWarehouse->location);
+            displayItems(currentWarehouse->root);
+            return; // Found warehouse, no need to continue searching
+        }
+        currentWarehouse = currentWarehouse->next;
+    }
+    printf("Warehouse with ID %d not found.\n", id);
+}
