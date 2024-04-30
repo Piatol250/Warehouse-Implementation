@@ -9,6 +9,8 @@ typedef struct Item {
     struct Item* right;
 } Item;
 
-void insertItem(Item** root, int id, const char* name, int quantity);
+void insertItem(Item** root, int id, const char* name, int quantity); //Finds the position in the BST based on the given id and inserts so the BST is sorted
+Item* searchItem(Item* root, int id); //Searchs the BST for the given id, returning the object
+void displayItems(Item* root); //Prints all items in the BST recursively
 
 #endif /* ITEM_H */

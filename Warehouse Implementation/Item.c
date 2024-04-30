@@ -30,3 +30,21 @@ void insertItem(Item** root, int id, const char* name, int quantity) {
         }
     }
 }
+
+Item* searchItem(Item* root, int id) {
+    if (root == NULL || root->id == id) {
+        return root;
+    }
+    if (id < root->id) {
+        return searchItem(root->left, id);
+    }
+    return searchItem(root->right, id);
+}
+
+void displayItems(Item* root) {
+    if (root != NULL) {
+        displayItems(root->left); // Display left subtree
+        printf("Item ID: %d, Name: %s, Quantity: %d\n", root->id, root->name, root->quantity);
+        displayItems(root->right); // Display right subtree
+    }
+}
