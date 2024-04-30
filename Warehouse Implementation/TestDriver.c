@@ -38,7 +38,6 @@ Item* generateRandomItems(int numItems) {
     return root;
 }
 
-
 void testSearchItems() 
 {
     Item* result;
@@ -164,18 +163,74 @@ void itemInsertPerformance(int numIts)
     freeItems(root);
 }
 
+void warehouseCreationPerformance(int numWar)
+{
+    clock_t start, end;
+    double cpu_time_used;
+    Warehouse* warehouse;
+
+    start = clock();
+
+    warehouse = generateAndLinkRandomWarehouses(numWar, 0);
+
+    end = clock();
+
+    cpu_time_used = ((double)(end - start)) / 1000;
+    printf("Time taken to create warehouse list with %d warehouses: %f seconds\n", numWar, cpu_time_used);
+    freeWarehouses(warehouse);
+}
+
+void warehouseSearchPerformance(int numWar)
+{
+    clock_t start, end;
+    double cpu_time_used;
+    Warehouse* warehouse = generateAndLinkRandomWarehouses(numWar, 0);
+    int id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
+    
+
+    start = clock();
+
+    displayWarhouse(warehouse, id);
+
+    end = clock();
+
+    cpu_time_used = ((double)(end - start)) / 1000;
+    printf("Time taken find and display warehouse in warehouse list with %d items: %f seconds\n", numWar, cpu_time_used);
+    freeWarehouses(warehouse);
+}
+
+void warehouseInsertPerformance(int numInsert)
+{
+    clock_t start, end;
+    double cpu_time_used;
+    Warehouse* warehouse = generateAndLinkRandomWarehouses(1, 0);
+    int id = NULL;
+    char location[50];
+
+    start = clock();
+
+    for (int currWar = 0; currWar < numInsert; currWar++)
+    {
+        id = getRandomInt(1000, 9999);
+        generateRandomString(&location, 10);
+        insertWarehouse(warehouse, id, location);
+    }
+
+    end = clock();
+
+    cpu_time_used = ((double)(end - start)) / 1000;
+    printf("Time insert %d warehouses into warehouse list: %f seconds\n", numInsert, cpu_time_used);
+    freeWarehouses(warehouse);
+}
 
 
 
-
-int main() {
+void TestDriver() {
     int choice = NULL;
-    Warehouse* testWarehouse;
     int iterations = NULL;
 
     do 
-    {
-        
+    {  
         printf("Functionality or performance?\n");
         printf("0: quit\n1: function \n2: time\n");
         scanf_s("%d", &choice);
@@ -203,7 +258,7 @@ int main() {
             if (choice == 1) 
             {
                 printf("Which method?\n");
-                printf("1. Creation\n2. Search\n\n3. Insert\n");
+                printf("1. Creation\n2. Search\n3. Insert\n");
                 scanf_s("%d", &choice);
                 switch(choice)
                 {
@@ -217,11 +272,23 @@ int main() {
                         itemInsertPerformance(iterations);
                 }
             }
-           
-
-
-
-
+            else if (choice == 2) 
+            {
+                printf("Which method?\n");
+                printf("1. Creation\n2. Search\n3. Insert\n");
+                scanf_s("%d", &choice);
+                switch (choice)
+                {
+                case 1:
+                    warehouseCreationPerformance(iterations);
+                    break;
+                case 2:
+                    warehouseSearchPerformance(iterations);
+                    break;
+                case 3:
+                    warehouseInsertPerformance(iterations);
+                }
+            }
         }
 
     } while (choice != 0);
