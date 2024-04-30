@@ -132,7 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Item.c" />
-    <ClCompile Include="Source.c" />
+    <ClCompile Include="TestDriver.c" />
     <ClCompile Include="Warehouse.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

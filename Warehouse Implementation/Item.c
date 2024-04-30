@@ -48,3 +48,18 @@ void displayItems(Item* root) {
         displayItems(root->right); // Display right subtree
     }
 }
+
+Item* newItem(int id, const char* name, int quantity) {
+    Item* newItem = (Item*)malloc(sizeof(Item));
+    if (newItem == NULL) {
+        printf("Memory allocation failed for new item.\n");
+        return NULL;
+    }
+    newItem->id = id;
+    strncpy(newItem->name, name, sizeof(newItem->name) - 1);
+    newItem->name[sizeof(newItem->name) - 1] = '\0'; // Ensure null-terminated string
+    newItem->quantity = quantity;
+    newItem->left = NULL;
+    newItem->right = NULL;
+    return newItem;
+}

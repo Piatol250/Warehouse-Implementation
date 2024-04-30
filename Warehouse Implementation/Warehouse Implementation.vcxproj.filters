@@ -29,7 +29,7 @@
     <ClCompile Include="Item.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.c">
+    <ClCompile Include="TestDriver.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
