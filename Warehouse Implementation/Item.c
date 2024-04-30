@@ -63,3 +63,11 @@ Item* newItem(int id, const char* name, int quantity) {
     newItem->right = NULL;
     return newItem;
 }
+
+void freeItems(Item* root) {
+    if (root != NULL) {
+        freeItems(root->left); // Free left subtree
+        freeItems(root->right); // Free right subtree
+        free(root); // Free current node
+    }
+}

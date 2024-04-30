@@ -34,6 +34,11 @@ Item* generateRandomItemBST(int numItems) {
     return root;
 }
 
+void testSearchItems() 
+{
+    
+}
+
 int main() {
     srand(time(NULL)); // Seed the random number generator
 

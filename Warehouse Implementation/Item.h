@@ -13,5 +13,6 @@ void insertItem(Item** root, int id, const char* name, int quantity); //Finds th
 Item* searchItem(Item* root, int id); //Searchs the BST for the given id, returning the object
 void displayItems(Item* root); //Prints all items in the BST recursively
 Item* newItem(int id, const char* name, int quantity);
+void freeItems(Item* root); // Declaration for freeItems
 
 #endif /* ITEM_H */
