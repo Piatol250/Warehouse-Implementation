@@ -131,6 +131,7 @@
     <ClInclude Include="Warehouse.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Integration.c" />
     <ClCompile Include="Item.c" />
     <ClCompile Include="TestDriver.c" />
     <ClCompile Include="Warehouse.c" />
