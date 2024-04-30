@@ -1,6 +1,5 @@
 #ifndef WAREHOUSE_H
 #define WAREHOUSE_H
-
 #include "item.h"
 
 typedef struct Warehouse {
@@ -10,5 +9,9 @@ typedef struct Warehouse {
     struct Item* root; // Root of BST of items in this warehouse
     struct Warehouse* next;
 } Warehouse;
+
+void insertWarehouse(Warehouse** head, int id, const char* location);
+
+// Other warehouse-related function declarations
 
 #endif /* WAREHOUSE_H */
