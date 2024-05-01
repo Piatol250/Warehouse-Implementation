@@ -67,7 +67,7 @@ void dataBaseConstructor()
 			currentItem = createItem();
 			printf("What is the id of the warehouse you want to add the item to?\n");
 			scanf_s("%d", &tempID);
-			tempWarehouse = findWarhouse(currentWarehouse, tempID);
+			tempWarehouse = findWarehouse(currentWarehouse, tempID);
 			addItemToWarehouse(tempWarehouse, currentItem);
 			break;
 		case 2:
@@ -91,7 +91,7 @@ int main()
 	do
 	{
 		printf("Do you want to build a warehouse or test the code?"
-			"\n0. Quit\n1. Test code\n2. Build warehouse\n");
+			"\n0. Quit\n1. Run the code testing module\n2. Build a warehouse\n");
 		scanf_s("%d", &mainChoice);
 		if (mainChoice == 1)
 		{

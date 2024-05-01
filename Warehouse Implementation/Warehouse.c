@@ -72,7 +72,7 @@ void freeWarehouses(Warehouse* head) {
     }
 }
 
-Warehouse* findWarhouse(Warehouse* head, int id)
+Warehouse* findWarehouse(Warehouse* head, int id)
 {
     Warehouse* currentWarehouse = head;
     while (currentWarehouse != NULL) {

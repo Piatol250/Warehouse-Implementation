@@ -102,9 +102,8 @@ void itemCreationPerformance(int numItems)
 {
     clock_t start, end;
     double cpu_time_used;
-    Item* root;
     Item* root = NULL;
-    char* name[50];
+    char name[50];
     int id;
     int quantity;
 
@@ -115,7 +114,7 @@ void itemCreationPerformance(int numItems)
         id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
         generateRandomString(&name, 10);
         quantity = getRandomInt(1, 100); // Random quantity between 1 and 100
-        createAndInsertItem(&root, id, name, quantity);
+        root = newItem(id, name, quantity);
     }
 
     end = clock();
@@ -133,7 +132,6 @@ void itemSearchPerformance(int numIts)
     int id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
 
     root = generateRandomItems(numIts);
-
     start = clock();
 
     searchItem(root, id);
@@ -141,7 +139,7 @@ void itemSearchPerformance(int numIts)
     end = clock();
 
     cpu_time_used = ((double)(end - start)) / 1000;
-    printf("Time taken to search for %d items: %f seconds\n", numIts, cpu_time_used);
+    printf("%f\n", cpu_time_used);
     freeItems(root);
 }
 
@@ -202,7 +200,7 @@ void warehouseSearchPerformance(int numWar)
 
     start = clock();
 
-    displayWarhouse(warehouse, id);
+    findWarehouse(warehouse, id);
 
     end = clock();
 
@@ -231,7 +229,7 @@ void warehouseInsertPerformance(int numInsert)
     end = clock();
 
     cpu_time_used = ((double)(end - start)) / 1000;
-    printf("%f",cpu_time_used);
+    printf("%f\n",cpu_time_used);
     freeWarehouses(warehouse);
 }
 
@@ -240,13 +238,63 @@ void performanceScaleTestItem()
     int currentLoop = 0;
     int iterations = 0;
 
+    printf("\nPerformance scale test for search:\n");
     while(currentLoop != 20)
+    {
+        itemSearchPerformance(iterations);
+        iterations = iterations + 200000;
+        currentLoop++;
+    }
+    iterations = 0;
+    currentLoop = 0;
+    printf("\nPerformance scale test for insertion:\n");
+    while (currentLoop != 20)
+    {
+        itemInsertPerformance(iterations);
+        iterations = iterations + 200000;
+        currentLoop++;
+    }
+    iterations = 0;
+    currentLoop = 0;
+    printf("\nPerformance scale test for creation:\n");
+    while (currentLoop != 20)
     {
         itemCreationPerformance(iterations);
         iterations = iterations + 200000;
         currentLoop++;
     }
+}
 
+void performanceScaleTestWarehouse()
+{
+    int currentLoop = 0;
+    int iterations = 0;
+
+    printf("\nPerformance scale test for search:\n");
+    while (currentLoop != 20)
+    {
+        warehouseSearchPerformance(iterations);
+        iterations = iterations + 200000;
+        currentLoop++;
+    }
+    iterations = 0;
+    currentLoop = 0;
+    printf("\nPerformance scale test for insertion:\n");
+    while (currentLoop != 20)
+    {
+        warehouseInsertPerformance(iterations);
+        iterations = iterations + 200000;
+        currentLoop++;
+    }
+    iterations = 0;
+    currentLoop = 0;
+    printf("\nPerformance scale test for creation:\n");
+    while (currentLoop != 20)
+    {
+        warehouseCreationPerformance(iterations);
+        iterations = iterations + 200000;
+        currentLoop++;
+    }
 }
 
 
@@ -303,7 +351,7 @@ void TestDriver() {
             else if (choice == 2) 
             {
                 printf("Which method?\n");
-                printf("1. Creation\n2. Search\n3. Insert\n");
+                printf("1. Creation\n2. Search\n3. Insert\n4. Performance scale test\n");
                 scanf_s("%d", &choice);
                 switch (choice)
                 {
@@ -315,6 +363,8 @@ void TestDriver() {
                     break;
                 case 3:
                     warehouseInsertPerformance(iterations);
+                case 4:
+                    performanceScaleTestWarehouse();
                 }
             }
         }
