@@ -16,12 +16,12 @@ void insertWarehouse(Warehouse** head, int id, const char* location) {
     *head = newWarehouse;
 }
 
-void addItemToWarehouse(Warehouse* warehouse, int id, const char* name, int quantity) {
+void addItemToWarehouse(Warehouse* warehouse, Item* item) {
     if (warehouse == NULL) {
         printf("Warehouse does not exist.\n");
         return;
     }
-    insertItem(&(warehouse->root), id, name, quantity);
+    insertItem(&(warehouse->root), item);
 }
 
 void displayWarehouses(Warehouse* head) {
@@ -70,4 +70,18 @@ void freeWarehouses(Warehouse* head) {
         free(currentWarehouse);
         currentWarehouse = nextWarehouse; // Move to the next warehouse
     }
+}
+
+Warehouse* findWarhouse(Warehouse* head, int id)
+{
+    Warehouse* currentWarehouse = head;
+    while (currentWarehouse != NULL) {
+        if (currentWarehouse->id == id) { 
+            return currentWarehouse;
+        }
+        currentWarehouse = currentWarehouse->next;
+    }
+
+    printf("Warehouse with ID %d not found.\n", id);
+    return NULL;
 }

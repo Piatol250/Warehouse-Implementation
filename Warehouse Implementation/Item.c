@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "item.h"
 
-void insertItem(Item** root, int id, const char* name, int quantity) {
+void insertItem(Item** root, Item* item) {
     if (*root == NULL) {
         // Create a new node
         *root = (Item*)malloc(sizeof(Item));
@@ -10,23 +10,23 @@ void insertItem(Item** root, int id, const char* name, int quantity) {
             printf("Memory allocation failed for new item.\n");
             return;
         }
-        (*root)->id = id;
-        strcpy((*root)->name, name);
-        (*root)->quantity = quantity;
+        (*root)->id = item->id;
+        strcpy((*root)->name, item->name);
+        (*root)->quantity = item->quantity;
         (*root)->left = NULL;
         (*root)->right = NULL;
     }
     else {
         // Recursively insert based on ID
-        if (id < (*root)->id) {
-            insertItem(&((*root)->left), id, name, quantity);
+        if (item->id < (*root)->id) {
+            insertItem(&((*root)->left), item);
         }
-        else if (id > (*root)->id) {
-            insertItem(&((*root)->right), id, name, quantity);
+        else if (item->id > (*root)->id) {
+            insertItem(&((*root)->right), item);
         }
         else {
             //Handles duplicates
-            insertItem(root, id + 1, name, quantity);
+            insertItem(root, item->id + 1, item);
             
         }
     }

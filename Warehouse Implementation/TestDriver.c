@@ -21,7 +21,7 @@ void generateRandomString(char* str, int length) {
 
 void createAndInsertItem(Item** root, int id, const char* name, int quantity) {
     Item* item = newItem(id, name, quantity);
-    insertItem(root, item->id, item->name, item->quantity);
+    insertItem(root, item);
 }
 
 // Generate a random item BST with a given number of items
@@ -93,7 +93,7 @@ void testWarehouseMethods()
     displayWarehouses(testWarehouse);
     printf("\n");
     printf("Add an item to a warehouse (name: test, id: 75, quantity: 200, which tests addItemToWarehouse() and displayWarehouse():\n");
-    addItemToWarehouse(testWarehouse, 75, "test", 200);
+    addItemToWarehouse(testWarehouse, newItem(75, "test", 200));
     displayWarhouse(testWarehouse, testWarehouse->id);
     freeWarehouses(testWarehouse);
 }
