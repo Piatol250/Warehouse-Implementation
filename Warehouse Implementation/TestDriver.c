@@ -103,15 +103,25 @@ void itemCreationPerformance(int numItems)
     clock_t start, end;
     double cpu_time_used;
     Item* root;
+    Item* root = NULL;
+    char* name[50];
+    int id;
+    int quantity;
 
     start = clock();
 
-    root = generateRandomItems(numItems);
+    for (int i = 0; i < numItems; ++i)
+    {
+        id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
+        generateRandomString(&name, 10);
+        quantity = getRandomInt(1, 100); // Random quantity between 1 and 100
+        createAndInsertItem(&root, id, name, quantity);
+    }
 
     end = clock();
 
     cpu_time_used = ((double)(end - start))/1000;
-    printf("Time taken to create item BST with %d items: %f seconds\n", numItems, cpu_time_used);
+    printf("%f\n", cpu_time_used);
     freeItems(root);
 }
 
@@ -139,6 +149,7 @@ void itemInsertPerformance(int numIts)
 {
     clock_t start, end;
     double cpu_time_used;
+    Item* currItem;
     Item* root;
     int id = NULL;
     char name[50];
@@ -153,13 +164,14 @@ void itemInsertPerformance(int numIts)
         id = getRandomInt(1000, 9999); // Random ID between 1000 and 9999
         generateRandomString(&name, 10);
         quantity = getRandomInt(1, 100);
-        insertItem(&root, id, name, quantity);   
+        currItem = newItem(id, name, quantity);
+        insertItem(&root, currItem);   
     }
 
     end = clock();
 
     cpu_time_used = ((double)(end - start)) / 1000;
-    printf("Time taken to insert %d items: %f seconds\n", numIts, cpu_time_used);
+    printf("%f\n", cpu_time_used);
     freeItems(root);
 }
 
@@ -219,10 +231,23 @@ void warehouseInsertPerformance(int numInsert)
     end = clock();
 
     cpu_time_used = ((double)(end - start)) / 1000;
-    printf("Time insert %d warehouses into warehouse list: %f seconds\n", numInsert, cpu_time_used);
+    printf("%f",cpu_time_used);
     freeWarehouses(warehouse);
 }
 
+void performanceScaleTestItem()
+{
+    int currentLoop = 0;
+    int iterations = 0;
+
+    while(currentLoop != 20)
+    {
+        itemCreationPerformance(iterations);
+        iterations = iterations + 200000;
+        currentLoop++;
+    }
+
+}
 
 
 void TestDriver() {
@@ -258,7 +283,7 @@ void TestDriver() {
             if (choice == 1) 
             {
                 printf("Which method?\n");
-                printf("1. Creation\n2. Search\n3. Insert\n");
+                printf("1. Creation\n2. Search\n3. Insert\n4. Performance scale test\n");
                 scanf_s("%d", &choice);
                 switch(choice)
                 {
@@ -270,6 +295,9 @@ void TestDriver() {
                         break;
                     case 3:
                         itemInsertPerformance(iterations);
+                        break;
+                    case 4:
+                        performanceScaleTestItem();
                 }
             }
             else if (choice == 2) 

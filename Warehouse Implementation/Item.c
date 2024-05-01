@@ -4,30 +4,14 @@
 
 void insertItem(Item** root, Item* item) {
     if (*root == NULL) {
-        // Create a new node
-        *root = (Item*)malloc(sizeof(Item));
-        if (*root == NULL) {
-            printf("Memory allocation failed for new item.\n");
-            return;
-        }
-        (*root)->id = item->id;
-        strcpy((*root)->name, item->name);
-        (*root)->quantity = item->quantity;
-        (*root)->left = NULL;
-        (*root)->right = NULL;
+        *root = item;
     }
     else {
-        // Recursively insert based on ID
         if (item->id < (*root)->id) {
-            insertItem(&((*root)->left), item);
-        }
-        else if (item->id > (*root)->id) {
-            insertItem(&((*root)->right), item);
+            insertItem(&(*root)->left, item);
         }
         else {
-            //Handles duplicates
-            insertItem(root, item->id + 1, item);
-            
+            insertItem(&(*root)->right, item);
         }
     }
 }

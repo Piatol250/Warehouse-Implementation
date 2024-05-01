@@ -44,11 +44,11 @@ Warehouse* constructWarehouse(int insOrCreate, Warehouse* warehouse)
 	}
 }
 
-Warehouse* dataBaseConstructor(Warehouse* warehouse)
+void dataBaseConstructor()
 {
 	int mainChoice = NULL;
 	int tempID = NULL;
-	Warehouse* currentWarehouse = warehouse;
+	Warehouse* currentWarehouse = NULL;
 	Item* currentItem = NULL;
 	Warehouse* tempWarehouse;
 
@@ -65,7 +65,7 @@ Warehouse* dataBaseConstructor(Warehouse* warehouse)
 		{
 		case 1:
 			currentItem = createItem();
-			printf("What is the id of the warehouse you want to add the item to?");
+			printf("What is the id of the warehouse you want to add the item to?\n");
 			scanf_s("%d", &tempID);
 			tempWarehouse = findWarhouse(currentWarehouse, tempID);
 			addItemToWarehouse(tempWarehouse, currentItem);
@@ -99,7 +99,7 @@ int main()
 		}
 		else if (mainChoice == 2)
 		{
-			currentWarehouse = dataBaseConstructor(currentWarehouse);
+			dataBaseConstructor();
 		}
 
 	} while (mainChoice != 0);
