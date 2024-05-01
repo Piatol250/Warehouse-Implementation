@@ -60,6 +60,7 @@ void dataBaseConstructor()
 			"1. Add an item to a warehouse?\n"
 			"2. Create a new warehouse?\n"
 			"3. Display warehouses?\n");
+			"4. Search for an item by id\n";
 		scanf_s("%d", &mainChoice);
 		switch (mainChoice)
 		{
@@ -76,7 +77,14 @@ void dataBaseConstructor()
 		case 3:
 			displayWarehouses(currentWarehouse);
 			break;
+		case 4:
+			printf("What is the id of your item?\n");
+			scanf_s("%d", &tempID);
+			
+			findItem(currentWarehouse, tempID);
 		}
+		
+
 		
 	} while (mainChoice != 0);
 

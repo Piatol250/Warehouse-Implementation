@@ -16,6 +16,7 @@ void displayWarhouse(Warehouse* head, int id); //Displays a warehouse based on t
 Warehouse* newWarehouse(int id, const char* location, Item* itemBSTRoot); //Creates a new warehouse object based on the inputs
 void freeWarehouses(Warehouse* head); //Clears the memory for all warehouses in the linked list along with all item BSTs 
 Warehouse* findWarehouse(Warehouse* head, int id);
+Warehouse* findItem(Warehouse* head, int id);
 
 // Other warehouse-related function declarations
 

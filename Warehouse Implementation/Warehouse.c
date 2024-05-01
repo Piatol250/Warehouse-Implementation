@@ -76,12 +76,28 @@ Warehouse* findWarehouse(Warehouse* head, int id)
 {
     Warehouse* currentWarehouse = head;
     while (currentWarehouse != NULL) {
-        if (currentWarehouse->id == id) { 
+        if (currentWarehouse->id == id) {
             return currentWarehouse;
         }
         currentWarehouse = currentWarehouse->next;
     }
 
     printf("Warehouse with ID %d not found.\n", id);
+    return NULL;
+}
+
+Warehouse* findItem(Warehouse* head, int id)
+{
+    Warehouse* currentWarehouse = head;
+    while (currentWarehouse != NULL) {
+        if (searchItem(currentWarehouse->root, id)->id == id)
+        {
+            printf("In warehouse id number: %d\n", currentWarehouse->id);
+            return currentWarehouse;
+        }
+        currentWarehouse = currentWarehouse->next;
+    }
+
+    printf("Item with ID %d not found.\n", id);
     return NULL;
 }
